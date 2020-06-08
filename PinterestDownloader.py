@@ -4,9 +4,9 @@ import json, os, requests, time
 mainpath = os.path.dirname(os.path.abspath(__file__))
 username = ""
 try:
-    username = input("请输入用户名")
+    username = input("please input user name")
 except:
-    input("账号错误")
+    input("invalid user name")
     exit(0)
 
 
@@ -49,7 +49,7 @@ def downloadFromUrl(url, DownloadPath, name='', type='jpg'):
         name = 'temp'
     zip_path = os.path.join(file_path, name+'.'+type)
 
-    print(DownloadPath+name, "开始下载")
+    print(DownloadPath+name, "begin downloading")
     #if not os.path.exists(zip_path):
     try:
         r = requests.get(zip_url, stream=True, headers=headers, timeout=15)
@@ -69,7 +69,7 @@ def downloadFromUrl(url, DownloadPath, name='', type='jpg'):
                     print('\r'+zip_path + ': ' + '{:.2f}'.format(p) + '%' + ' Speed: ' + '{:.2f}'.format(speed) + 'M/S',end = '', flush=True)
                     time1 = time.time()
         f.close()
-        print(DownloadPath+name, "下载完成")
+        print(DownloadPath+name, "download finished")
     except:
         try:
             if os.path.exists(zip_path):
@@ -77,8 +77,8 @@ def downloadFromUrl(url, DownloadPath, name='', type='jpg'):
         except:
             pass
         if not isValidUrl(url):
-            print(url + " 链接失效")
-        print(DownloadPath+name, "下载失败")
+            print(url + " invalid url")
+        print(DownloadPath+name, "download failed")
     if os.path.exists(zip_path):
         return zip_path
     else:
@@ -143,4 +143,4 @@ for b in boards:
     downloadBoard(b['id'])
 
 
-input("下载结束")
+input("download finished")
